@@ -6,18 +6,18 @@ import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
-export class CdkWorkshop1Stack extends Stack {
+export class CdkWorkshop1Stack extends cdk.Stack {
   public readonly hcViewerUrl: cdk.CfnOutput;
   public readonly hcEndpoint: cdk.CfnOutput;
 
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // defines an AWS Lambda resource
     const hello = new lambda.Function(this, 'HelloHandler', {
       runtime: lambda.Runtime.NODEJS_14_X,    // execution environment
       code: lambda.Code.fromAsset('lambda'),  // code loaded from "lambda" directory
-      handler: 'hello.handler'                // file is "hello", function is "handler"
+      handler: 'hello.handler',               // file is "hello", function is "handler"
     });
 
     const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
